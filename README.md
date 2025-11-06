@@ -1,63 +1,74 @@
-# MiniEmployeeDashboard
+# Employee Management Dashboard 🚀
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+A modern, responsive Employee Management System built with **Angular 19** featuring dark/light theme toggle, CRUD operations, and advanced filtering capabilities.
 
-## Development server
+![Angular](https://img.shields.io/badge/Angular-19-red)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
+![TypeScript](https://img.shields.io/badge/TypeScript-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-To start a local development server, run:
+---
 
+## ✨ Live Demo
+[Add your live demo link here once deployed]
+
+---
+
+## 🚀 Features
+
+### Core Features ✅
+- **Employee CRUD Operations** — Create, Read, Update, Delete employees
+- **Advanced Filtering** — Search by name/email, filter by department
+- **Smart Sorting** — Sort by name and date of joining (asc/desc)
+- **Form Validation** — Client-side validation with error messages
+- **Responsive Design** — Works on desktop, tablet, and mobile
+- **Dark/Light Theme** — Toggle between themes with persistence
+
+### Bonus Features 🎯
+- **LocalStorage Persistence**
+- **CSV Export** for all employees
+- **Interactive Statistics Widget**
+- **Department Management View**
+- **System Theme Detection**
+- **Smooth Animations**
+- **Professional UI/UX (Bootstrap 5 + FontAwesome)**
+- **Angular Signals for Reactive State**
+- **Interactive Navigation**
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend**: Angular 19  
+- **Language**: TypeScript  
+- **UI Framework**: Bootstrap 5  
+- **Icons**: FontAwesome 6  
+- **State Management**: Angular Signals  
+- **Persistence**: LocalStorage  
+- **Build Tool**: Angular CLI  
+- **Package Manager**: npm  
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
 ```bash
+git clone https://github.com/your-username/mini-employee-dashboard.git
+cd mini-employee-dashboard
+
+
+### Install Dependencies
+npm install
+
+
+### Run the Development Server
 ng serve
+
+
+### Then open your browser and navigate to:
+👉 http://localhost:4200
+
+
+
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-
-
-
