@@ -5,12 +5,6 @@ A modern, responsive Employee Management System built with **Angular 19** featur
 ![Angular](https://img.shields.io/badge/Angular-19-red)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
 ![TypeScript](https://img.shields.io/badge/TypeScript-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-
----
-
-## ✨ Live Demo
-[Add your live demo link here once deployed]
 
 ---
 
