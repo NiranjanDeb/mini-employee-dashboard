@@ -1,0 +1,124 @@
+.employee-list-container {
+  padding: 1rem 0;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  background: var(--primary-color);
+  color: white;
+}
+
+.department-badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 15px;
+  color: white !important;
+}
+
+/* Department badge colors that work in both themes */
+.department-hr { background-color: #e74c3c; color: white; }
+.department-engineering { background-color: #3498db; color: white; }
+.department-sales { background-color: #2ecc71; color: white; }
+.department-marketing { background-color: #9b59b6; color: white; }
+.department-finance { background-color: #f39c12; color: white; }
+.department-operations { background-color: #1abc9c; color: white; }
+.department-customer-support { background-color: #34495e; color: white; }
+.department-product { background-color: #e67e22; color: white; }
+.department-design { background-color: #e84393; color: white; }
+.department-itis { background-color: #16a085; color: white; }
+
+.table th {
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-color);
+  background-color: var(--surface-color);
+}
+
+.table td {
+  border-color: var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.table tbody tr:hover {
+  background-color: var(--table-hover);
+}
+
+.btn-group .btn {
+  border-radius: 0.375rem;
+  margin: 0 2px;
+  border-color: var(--border-color);
+}
+
+.empty-state {
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.empty-state i {
+  opacity: 0.5;
+}
+
+.empty-state h5 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.modal-content {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 3rem var(--shadow-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+}
+
+.input-group-text {
+  background-color: var(--surface-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Fix for the "Showing X of Y employees" text */
+.form-control.bg-light {
+  background-color: var(--surface-color) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .btn-group .btn {
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .avatar-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .employee-list-container {
+    padding: 0.5rem 0;
+  }
+}

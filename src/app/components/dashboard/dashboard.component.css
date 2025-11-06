@@ -1,0 +1,83 @@
+.dashboard-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+/* DASHBOARD HEADER TITLE STYLES */
+.dashboard-header h1 {
+  color: var(--dashboard-header-color); /* This uses our new CSS variable */
+  font-weight: 700;
+  font-size: 1.75rem;
+  transition: color 0.3s ease;
+  margin: 0;
+}
+
+.dashboard-header .fa-tachometer-alt {
+  color: var(--dashboard-header-color); /* Icon matches the text color */
+  transition: color 0.3s ease;
+}
+
+.dashboard-main {
+  flex: 1;
+  background-color: var(--background-color);
+}
+
+.dashboard-footer {
+  margin-top: auto;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Smooth transitions for view changes */
+app-employee-list,
+app-employee-form {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header .container-fluid {
+    padding: 0 1rem;
+  }
+  
+  .dashboard-main .container-fluid {
+    padding: 0 1rem;
+  }
+  
+  .dashboard-header .row {
+    text-align: center;
+  }
+  
+  .dashboard-header .col-auto {
+    margin-top: 1rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+}

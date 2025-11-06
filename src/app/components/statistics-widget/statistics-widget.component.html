@@ -1,0 +1,26 @@
+<div class="statistics-widget">
+  <div class="row g-3">
+    <div class="col-xl-3 col-md-6" *ngFor="let stat of stats()">
+      <div class="stat-card card h-100" 
+           [class.clickable]="stat.clickable"
+           [class.disabled]="!stat.clickable"
+           (click)="onStatClick(stat)">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="stat-icon me-3" [ngClass]="'text-' + stat.color">
+              <i [class]="getIconClass(stat)"></i>
+            </div>
+            <div class="flex-grow-1">
+              <div class="stat-value">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+              <div class="stat-description">{{ stat.description }}</div>
+            </div>
+            <div class="stat-indicator" *ngIf="stat.clickable">
+              <i class="fas fa-chevron-right text-muted"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

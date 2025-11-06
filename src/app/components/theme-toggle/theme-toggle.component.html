@@ -1,0 +1,15 @@
+<button 
+  class="theme-toggle"
+  (click)="toggleTheme()"
+  [attr.aria-label]="'Switch to ' + (themeService.currentTheme() === 'light' ? 'dark' : 'light') + ' theme'"
+  title="Toggle theme"
+>
+  <div class="theme-toggle-content">
+    <span class="theme-icon">
+      <i class="fas" [class.fa-sun]="themeService.currentTheme() === 'light'" [class.fa-moon]="themeService.currentTheme() === 'dark'"></i>
+    </span>
+    <span class="theme-text">
+      {{ themeService.currentTheme() === 'light' ? 'Dark' : 'Light' }} Mode
+    </span>
+  </div>
+</button>

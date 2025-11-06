@@ -1,1 +1,357 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* CSS Custom Properties for Theming */
+:root {
+  /* Light Theme (Default) */
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --success-color: #27ae60;
+  --danger-color: #e74c3c;
+  --warning-color: #f39c12;
+  --info-color: #17a2b8;
+  
+  /* Background & Surface Colors */
+  --background-color: #ffffff;
+  --surface-color: #f8f9fa;
+  --card-bg: #ffffff;
+  
+  /* Text Colors */
+  --text-color: #2c3e50;
+  --text-secondary: #6c757d;
+  --text-muted: #6c757d;
+  
+  /* UI Colors */
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-bg: #ffffff;
+  --input-bg: #ffffff;
+  --table-hover: rgba(52, 152, 219, 0.05);
+  
+  /* Header Colors */
+  --dashboard-header-color: #3498db;
+  --header-bg: #ffffff;
+
+   --stat-card-bg: #ffffff;
+  --stat-card-border: #e0e0e0;
+  --stat-icon-bg: #f8f9fa;
+}
+
+/* Dark Theme - COMPLETELY FIXED */
+.dark-theme {
+
+   --stat-card-bg: #2d2d2d;
+  --stat-card-border: #404040;
+  --stat-icon-bg: #37474f;
+
+  --primary-color: #64b5f6;
+  --secondary-color: #e3f2fd;
+  --success-color: #81c784;
+  --danger-color: #e57373;
+  --warning-color: #ffb74d;
+  --info-color: #4fc3f7;
+  
+  /* Background & Surface Colors */
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --card-bg: #2d2d2d;
+  
+  /* Text Colors - FIXED for better visibility */
+  --text-color: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #9e9e9e;
+  
+  /* UI Colors */
+  --border-color: #424242;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --button-bg: #37474f;
+  --input-bg: #37474f;
+  --table-hover: rgba(100, 181, 246, 0.1);
+  
+  /* Header Colors */
+  --dashboard-header-color: #6b77ff;
+  --header-bg: #2d2d2d;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.stat-card {
+  background: var(--stat-card-bg) !important;
+  border-color: var(--stat-card-border) !important;
+}
+.stat-icon {
+  background: var(--stat-icon-bg) !important;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ========== BOOTSTRAP COMPONENT OVERRIDES ========== */
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.3s ease;
+  color: var(--text-color);
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.card-header {
+  background-color: var(--surface-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.card-title {
+  color: var(--text-color) !important;
+}
+
+/* Tables - COMPLETELY FIXED */
+.table {
+  color: var(--text-color) !important;
+  background-color: var(--card-bg);
+}
+
+.table th {
+  background-color: var(--surface-color) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+  font-weight: 600;
+}
+
+.table td {
+  border-color: var(--border-color) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--table-hover) !important;
+}
+
+/* Forms - FIXED */
+.form-control, .form-select {
+  background-color: var(--input-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--input-bg) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25) !important;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
+
+.form-label {
+  color: var(--text-color) !important;
+  font-weight: 500;
+}
+
+.input-group-text {
+  background-color: var(--surface-color) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Buttons - FIXED */
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #42a5f5 100%);
+  border: none;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 181, 246, 0.3);
+  color: white !important;
+}
+
+.btn-outline-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white !important;
+}
+
+.btn-outline-secondary {
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+  background-color: var(--button-bg);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--surface-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+}
+
+.btn-outline-danger {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: white !important;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: white !important;
+}
+
+/* Alerts */
+.alert {
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-color);
+}
+
+.alert-info {
+  background-color: rgba(79, 195, 247, 0.1);
+  border-color: var(--info-color);
+  color: var(--text-color);
+}
+
+.alert-warning {
+  background-color: rgba(255, 183, 77, 0.1);
+  border-color: var(--warning-color);
+  color: var(--text-color);
+}
+
+.alert-danger {
+  background-color: rgba(229, 115, 115, 0.1);
+  border-color: var(--danger-color);
+  color: var(--text-color);
+}
+
+/* Badges */
+.badge {
+  color: white !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-success {
+  background-color: var(--success-color) !important;
+}
+
+.bg-light {
+  background-color: var(--surface-color) !important;
+  color: var(--text-color) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color) !important;
+  background-color: var(--surface-color) !important;
+}
+
+.modal-title {
+  color: var(--text-color) !important;
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Custom scrollbar for dark theme */
+.dark-theme ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-theme ::-webkit-scrollbar-track {
+  background: var(--surface-color);
+}
+
+.dark-theme ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Utility classes */
+.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+.bg-light {
+  background-color: var(--surface-color) !important;
+}
+
+.border-bottom {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.border-top {
+  border-top-color: var(--border-color) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 4px var(--shadow-color) !important;
+}

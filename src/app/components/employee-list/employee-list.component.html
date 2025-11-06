@@ -1,0 +1,266 @@
+<div class="employee-list-container">
+  <!-- Statistics Widget -->
+  <app-statistics-widget (statClick)="onStatClick($event)"></app-statistics-widget>
+
+  <!-- View Header -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="card-title mb-0">
+            <i class="fas fa-users me-2" [ngClass]="{
+              'text-primary': currentView() === 'all',
+              'text-info': currentView() === 'departments',
+              'text-success': currentView() === 'department-detail',
+              'text-warning': currentView() === 'new-hires'
+            }"></i>{{ viewTitle() }}
+          </h2>
+          <p class="text-muted mb-0">
+            <span *ngIf="currentView() === 'all'">
+              Showing {{ totalDisplayedEmployees }} of {{ employeeService.totalEmployees() }} employees
+            </span>
+            <span *ngIf="currentView() === 'departments'">
+              Click on a department to view employees
+            </span>
+            <span *ngIf="currentView() === 'department-detail'">
+              {{ totalDisplayedEmployees }} employees in {{ selectedDepartment() }}
+            </span>
+            <span *ngIf="currentView() === 'new-hires'">
+              {{ totalDisplayedEmployees }} new employees hired this month
+            </span>
+          </p>
+        </div>
+        <div class="col-md-6 text-end">
+          <!-- Back to Departments button -->
+          <button class="btn btn-outline-secondary me-2" 
+                  *ngIf="currentView() === 'department-detail'"
+                  (click)="showDepartmentList()">
+            <i class="fas fa-arrow-left me-1"></i>Back to Departments
+          </button>
+          
+          <!-- Back to All Employees button -->
+          <button class="btn btn-outline-secondary me-2" 
+                  *ngIf="currentView() !== 'all' && currentView() !== 'departments'"
+                  (click)="showAllEmployees()">
+            <i class="fas fa-list me-1"></i>All Employees
+          </button>
+
+          <!-- Departments button -->
+          <button class="btn btn-outline-info me-2" 
+                  *ngIf="currentView() !== 'departments'"
+                  (click)="showDepartmentList()">
+            <i class="fas fa-building me-1"></i>Departments
+          </button>
+
+          <button class="btn btn-success" (click)="exportToCSV()" [disabled]="isExporting">
+            <i class="fas fa-download me-1"></i>
+            {{ isExporting ? 'Exporting...' : 'Export CSV' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== DEPARTMENT LIST VIEW ========== -->
+  <div *ngIf="currentView() === 'departments'" class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-4">
+        <i class="fas fa-building me-2 text-info"></i>All Departments
+      </h5>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4" *ngFor="let dept of getDepartmentStats()">
+          <div class="department-card card h-100 clickable" 
+               (click)="showDepartmentEmployees(dept.department)">
+            <div class="card-body text-center">
+              <div class="department-icon mb-3">
+                <i class="fas fa-building fa-2x text-primary"></i>
+              </div>
+              <h5 class="department-name">{{ dept.department }}</h5>
+              <div class="department-count">{{ dept.count }} employees</div>
+              <div class="department-percentage text-muted">{{ dept.percentage }}% of total</div>
+              <div class="mt-3">
+                <button class="btn btn-sm btn-primary">
+                  <i class="fas fa-eye me-1"></i>View Employees
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FILTERS SECTION ========== -->
+  <div class="card mb-4" *ngIf="currentView() === 'all' || currentView() === 'new-hires'">
+    <div class="card-body">
+      <div class="row g-3">
+        <!-- Search -->
+        <div class="col-md-4">
+          <label class="form-label">Search Employees</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-search"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by name or email..."
+              [value]="filters().search"
+              (input)="onSearchChange($any($event.target).value)"
+            >
+          </div>
+        </div>
+
+        <!-- Department Filter (only in all employees view) -->
+        <div class="col-md-4" *ngIf="currentView() === 'all'">
+          <label class="form-label">Department</label>
+          <select
+            class="form-select"
+            [value]="filters().department"
+            (change)="onDepartmentChange($any($event.target).value)"
+          >
+            <option value="">All Departments</option>
+            <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+          </select>
+        </div>
+
+        <!-- Results Count -->
+        <div class="col-md-4">
+          <label class="form-label">Showing</label>
+          <div class="form-control bg-light">
+            <strong>{{ totalDisplayedEmployees }}</strong> employees
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EMPLOYEES TABLE ========== -->
+  <div class="card" *ngIf="currentView() !== 'departments'">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th (click)="onSortChange('name')" style="cursor: pointer; width: 25%;">
+                Name
+                <i class="ms-1 {{ getSortIcon('name') }}"></i>
+              </th>
+              <th style="width: 25%;">Email</th>
+              <th style="width: 15%;">Department</th>
+              <th (click)="onSortChange('dateOfJoining')" style="cursor: pointer; width: 15%;">
+                Date of Joining
+                <i class="ms-1 {{ getSortIcon('dateOfJoining') }}"></i>
+              </th>
+              <!-- <th style="width: 10%;">Status</th> -->
+              <th style="width: 10%;" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of displayedEmployees()" class="align-middle">
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar-circle bg-primary text-white me-3">
+                    {{ employee.name.charAt(0).toUpperCase() }}
+                  </div>
+                  <div>
+                    <strong>{{ employee.name }}</strong>
+                    <br>
+                    <small class="text-muted">ID: {{ employee.id }}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <a [href]="'mailto:' + employee.email" class="text-decoration-none">
+                  <i class="fas fa-envelope me-1 text-muted"></i>
+                  {{ employee.email }}
+                </a>
+              </td>
+              <td>
+                <span class="badge department-badge" [class]="'department-' + employee.department.toLowerCase()">
+                  {{ employee.department }}
+                </span>
+              </td>
+              <td>
+                <small class="text-muted">
+                  <i class="fas fa-calendar me-1"></i>
+                  {{ getFormattedDate(employee.dateOfJoining) }}
+                </small>
+              </td>
+              <!-- <td>
+                <span class="badge bg-success">
+                  <i class="fas fa-check-circle me-1"></i>Active
+                </span>
+              </td> -->
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <button 
+                    class="btn btn-sm btn-outline-primary"
+                    (click)="onEditEmployee(employee)"
+                    title="Edit Employee"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="confirmDelete(employee)"
+                    title="Delete Employee"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="displayedEmployees().length === 0">
+              <td colspan="6" class="text-center py-4">
+                <div class="empty-state">
+                  <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                  <h5>No employees found</h5>
+                  <p class="text-muted">
+                    <span *ngIf="currentView() === 'new-hires'">
+                      No new hires this month.
+                    </span>
+                    <span *ngIf="currentView() === 'department-detail'">
+                      No employees found in {{ selectedDepartment() }} department.
+                    </span>
+                    <span *ngIf="currentView() === 'all' && (filters().search || filters().department)">
+                      Try adjusting your search or filters.
+                    </span>
+                    <span *ngIf="currentView() === 'all' && !filters().search && !filters().department">
+                      No employees have been added yet.
+                    </span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade show" [class.d-block]="showDeleteModal" style="background: rgba(0,0,0,0.5)" *ngIf="showDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>{{ employeeToDelete?.name }}</strong>?</p>
+        <p class="text-muted">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteEmployee()">
+          <i class="fas fa-trash me-1"></i>Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
