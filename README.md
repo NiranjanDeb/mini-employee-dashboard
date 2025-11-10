@@ -1,4 +1,4 @@
-# Employee Management Dashboard 🚀
+# Employee Management Dashboard 
 
 A modern, responsive Employee Management System built with **Angular 19** featuring dark/light theme toggle, CRUD operations, and advanced filtering capabilities.
 
@@ -8,9 +8,9 @@ A modern, responsive Employee Management System built with **Angular 19** featur
 
 ---
 
-## 🚀 Features
+##  Features
 
-### Core Features ✅
+### Core Features 
 - **Employee CRUD Operations** — Create, Read, Update, Delete employees
 - **Advanced Filtering** — Search by name/email, filter by department
 - **Smart Sorting** — Sort by name and date of joining (asc/desc)
@@ -31,7 +31,7 @@ A modern, responsive Employee Management System built with **Angular 19** featur
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - **Frontend**: Angular 19  
 - **Language**: TypeScript  
@@ -44,7 +44,7 @@ A modern, responsive Employee Management System built with **Angular 19** featur
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
@@ -61,7 +61,7 @@ ng serve
 
 
 ### Then open your browser and navigate to:
-👉 http://localhost:4200
+ http://localhost:4200
 
 
 
