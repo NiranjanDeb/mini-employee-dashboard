@@ -13,10 +13,10 @@ import { Employee } from '../../models/employee.model';
 export class StatisticsWidgetComponent {
   @Output() statClick = new EventEmitter<{ type: string; data?: any }>();
 
-  // Computed statistics that react to employee data changes
+
   stats = computed(() => {
     const employees = this.employeeService.allEmployees();
-    
+
     return [
       {
         label: 'Total Employees',
@@ -62,7 +62,7 @@ export class StatisticsWidgetComponent {
     return this.getDepartmentDistribution(employees);
   });
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService) { }
 
   onStatClick(stat: any): void {
     if (!stat.clickable) return;
@@ -71,21 +71,21 @@ export class StatisticsWidgetComponent {
 
     switch (stat.type) {
       case 'total':
-        // Show all employees
+
         data = { filter: 'all' };
         break;
-      
+
       case 'departments':
-        // Show department list
-        data = { 
+
+        data = {
           filter: 'departments',
           departments: this.departmentStats()
         };
         break;
-      
+
       case 'new-this-month':
-        // Show employees hired this month
-        data = { 
+
+        data = {
           filter: 'new-this-month',
           employees: this.getNewHiresThisMonthList()
         };
@@ -106,11 +106,11 @@ export class StatisticsWidgetComponent {
   private getNewHiresThisMonth(employees: Employee[]): number {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    
+
     return employees.filter(emp => {
       const joinDate = new Date(emp.dateOfJoining);
-      return joinDate.getMonth() === currentMonth && 
-             joinDate.getFullYear() === currentYear;
+      return joinDate.getMonth() === currentMonth &&
+        joinDate.getFullYear() === currentYear;
     }).length;
   }
 
@@ -118,27 +118,27 @@ export class StatisticsWidgetComponent {
     const employees = this.employeeService.allEmployees();
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    
+
     return employees.filter(emp => {
       const joinDate = new Date(emp.dateOfJoining);
-      return joinDate.getMonth() === currentMonth && 
-             joinDate.getFullYear() === currentYear;
+      return joinDate.getMonth() === currentMonth &&
+        joinDate.getFullYear() === currentYear;
     });
   }
 
   private getAverageTenure(employees: Employee[]): string {
     if (employees.length === 0) return '0';
-    
+
     const totalMonths = employees.reduce((acc, emp) => {
       const joinDate = new Date(emp.dateOfJoining);
       const today = new Date();
-      const months = (today.getFullYear() - joinDate.getFullYear()) * 12 + 
-                    (today.getMonth() - joinDate.getMonth());
+      const months = (today.getFullYear() - joinDate.getFullYear()) * 12 +
+        (today.getMonth() - joinDate.getMonth());
       return acc + Math.max(0, months);
     }, 0);
-    
+
     const averageMonths = totalMonths / employees.length;
-    
+
     if (averageMonths < 12) {
       return averageMonths.toFixed(1) + ' months';
     } else {
@@ -148,13 +148,13 @@ export class StatisticsWidgetComponent {
 
   private getDepartmentDistribution(employees: Employee[]): { department: string; count: number; percentage: number }[] {
     const departmentMap = new Map<string, number>();
-    
+
     employees.forEach(emp => {
       departmentMap.set(emp.department, (departmentMap.get(emp.department) || 0) + 1);
     });
-    
+
     const total = employees.length;
-    
+
     return Array.from(departmentMap.entries()).map(([department, count]) => ({
       department,
       count,
@@ -162,7 +162,7 @@ export class StatisticsWidgetComponent {
     })).sort((a, b) => b.count - a.count);
   }
 
-  // Helper method to get icon class
+
   getIconClass(stat: any): string {
     return `${stat.icon} text-${stat.color}`;
   }

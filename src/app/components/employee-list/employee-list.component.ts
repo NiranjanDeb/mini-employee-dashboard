@@ -16,12 +16,12 @@ import { StatisticsWidgetComponent } from '../statistics-widget/statistics-widge
 export class EmployeeListComponent implements OnInit {
   @Output() editEmployee = new EventEmitter<Employee>();
 
-  // View states
+
   currentView = signal<'all' | 'departments' | 'department-detail' | 'new-hires'>('all');
   selectedDepartment = signal<string>('');
   viewTitle = signal<string>('All Employees');
 
-  // Filters
+
   filters = signal<FilterOptions>({
     search: '',
     department: '',
@@ -29,19 +29,19 @@ export class EmployeeListComponent implements OnInit {
     sortOrder: 'asc'
   });
 
-  // Public properties
+
   departments = Object.values(Department);
   showDeleteModal = false;
   employeeToDelete: Employee | null = null;
   isExporting = false;
 
-  constructor(public employeeService: EmployeeService) {}
+  constructor(public employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     console.log('EmployeeListComponent initialized');
   }
 
-  // ========== VIEW MANAGEMENT ==========
+
 
   showAllEmployees(): void {
     this.currentView.set('all');
@@ -71,28 +71,27 @@ export class EmployeeListComponent implements OnInit {
     this.filters.update(f => ({ ...f, department: '', search: '' }));
   }
 
-  // Handle statistics widget clicks
   onStatClick(event: { type: string; data?: any }): void {
     console.log('Stat clicked:', event.type);
-    
+
     switch (event.type) {
       case 'total':
         this.showAllEmployees();
         break;
-      
+
       case 'departments':
         this.showDepartmentList();
         break;
-      
+
       case 'new-this-month':
         this.showNewHiresThisMonth();
         break;
     }
   }
 
-  // ========== DATA COMPUTATION ==========
 
-  // Get employees based on current view
+
+
   displayedEmployees = computed(() => {
     let employees = this.employeeService.allEmployees();
     const currentFilters = this.filters();
@@ -104,39 +103,39 @@ export class EmployeeListComponent implements OnInit {
     console.log('Search filter:', currentFilters.search);
     console.log('Department filter:', currentFilters.department);
 
-    // Apply view-specific filtering
+
     switch (this.currentView()) {
       case 'department-detail':
         employees = employees.filter(emp => emp.department === this.selectedDepartment());
         console.log('After department detail filter:', employees.length);
         break;
-      
+
       case 'new-hires':
         employees = this.getNewHiresThisMonth();
         console.log('After new hires filter:', employees.length);
         break;
     }
 
-    // Apply search filter
+
     if (currentFilters.search) {
       const searchLower = currentFilters.search.toLowerCase();
-      employees = employees.filter(emp => 
+      employees = employees.filter(emp =>
         emp.name.toLowerCase().includes(searchLower) ||
         emp.email.toLowerCase().includes(searchLower)
       );
       console.log('After search filter:', employees.length);
     }
 
-    // Apply department filter (only in all employees view)
+
     if (currentFilters.department && this.currentView() === 'all') {
       employees = employees.filter(emp => emp.department === currentFilters.department);
       console.log('After dropdown department filter:', employees.length);
     }
 
-    // Apply sorting
+
     employees.sort((a, b) => {
       let aValue: any, bValue: any;
-      
+
       if (currentFilters.sortBy === 'name') {
         aValue = a.name.toLowerCase();
         bValue = b.name.toLowerCase();
@@ -152,21 +151,20 @@ export class EmployeeListComponent implements OnInit {
 
     console.log('Final employee count:', employees.length);
     console.log('=== END DEBUG ===');
-    
+
     return employees;
   });
 
-  // Get department statistics
   getDepartmentStats() {
     const employees = this.employeeService.allEmployees();
     const departmentMap = new Map<string, number>();
-    
+
     employees.forEach(emp => {
       departmentMap.set(emp.department, (departmentMap.get(emp.department) || 0) + 1);
     });
-    
+
     const total = employees.length;
-    
+
     return Array.from(departmentMap.entries()).map(([department, count]) => ({
       department,
       count,
@@ -174,20 +172,20 @@ export class EmployeeListComponent implements OnInit {
     })).sort((a, b) => b.count - a.count);
   }
 
-  // Get new hires for this month
+
   getNewHiresThisMonth(): Employee[] {
     const employees = this.employeeService.allEmployees();
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    
+
     return employees.filter(emp => {
       const joinDate = new Date(emp.dateOfJoining);
-      return joinDate.getMonth() === currentMonth && 
-             joinDate.getFullYear() === currentYear;
+      return joinDate.getMonth() === currentMonth &&
+        joinDate.getFullYear() === currentYear;
     });
   }
 
-  // ========== UI INTERACTIONS ==========
+
 
   onSearchChange(searchTerm: string): void {
     this.filters.update(filters => ({ ...filters, search: searchTerm }));
@@ -229,7 +227,7 @@ export class EmployeeListComponent implements OnInit {
 
   exportToCSV(): void {
     this.isExporting = true;
-    
+
     try {
       const csvContent = this.employeeService.exportToCSV();
       const blob = new Blob([csvContent], { type: 'text/csv' });

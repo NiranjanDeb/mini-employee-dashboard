@@ -16,9 +16,9 @@
   backdrop-filter: blur(10px);
 }
 
-/* DASHBOARD HEADER TITLE STYLES */
+
 .dashboard-header h1 {
-  color: var(--dashboard-header-color); /* This uses our new CSS variable */
+  color: var(--dashboard-header-color);
   font-weight: 700;
   font-size: 1.75rem;
   transition: color 0.3s ease;
@@ -26,7 +26,7 @@
 }
 
 .dashboard-header .fa-tachometer-alt {
-  color: var(--dashboard-header-color); /* Icon matches the text color */
+  color: var(--dashboard-header-color); 
   transition: color 0.3s ease;
 }
 
@@ -42,7 +42,7 @@
   color: var(--text-secondary);
 }
 
-/* Smooth transitions for view changes */
+
 app-employee-list,
 app-employee-form {
   animation: fadeInUp 0.3s ease-out;
@@ -59,7 +59,7 @@ app-employee-form {
   }
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .dashboard-header .container-fluid {
     padding: 0 1rem;

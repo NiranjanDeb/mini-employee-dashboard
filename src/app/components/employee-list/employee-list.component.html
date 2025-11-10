@@ -1,8 +1,8 @@
 <div class="employee-list-container">
-  <!-- Statistics Widget -->
+
   <app-statistics-widget (statClick)="onStatClick($event)"></app-statistics-widget>
 
-  <!-- View Header -->
+
   <div class="card mb-4">
     <div class="card-body">
       <div class="row align-items-center">
@@ -31,24 +31,21 @@
           </p>
         </div>
         <div class="col-md-6 text-end">
-          <!-- Back to Departments button -->
-          <button class="btn btn-outline-secondary me-2" 
-                  *ngIf="currentView() === 'department-detail'"
-                  (click)="showDepartmentList()">
+
+          <button class="btn btn-outline-secondary me-2" *ngIf="currentView() === 'department-detail'"
+            (click)="showDepartmentList()">
             <i class="fas fa-arrow-left me-1"></i>Back to Departments
           </button>
-          
-          <!-- Back to All Employees button -->
-          <button class="btn btn-outline-secondary me-2" 
-                  *ngIf="currentView() !== 'all' && currentView() !== 'departments'"
-                  (click)="showAllEmployees()">
+
+
+          <button class="btn btn-outline-secondary me-2"
+            *ngIf="currentView() !== 'all' && currentView() !== 'departments'" (click)="showAllEmployees()">
             <i class="fas fa-list me-1"></i>All Employees
           </button>
 
-          <!-- Departments button -->
-          <button class="btn btn-outline-info me-2" 
-                  *ngIf="currentView() !== 'departments'"
-                  (click)="showDepartmentList()">
+
+          <button class="btn btn-outline-info me-2" *ngIf="currentView() !== 'departments'"
+            (click)="showDepartmentList()">
             <i class="fas fa-building me-1"></i>Departments
           </button>
 
@@ -61,7 +58,7 @@
     </div>
   </div>
 
-  <!-- ========== DEPARTMENT LIST VIEW ========== -->
+
   <div *ngIf="currentView() === 'departments'" class="card mb-4">
     <div class="card-body">
       <h5 class="card-title mb-4">
@@ -69,8 +66,7 @@
       </h5>
       <div class="row g-3">
         <div class="col-md-6 col-lg-4" *ngFor="let dept of getDepartmentStats()">
-          <div class="department-card card h-100 clickable" 
-               (click)="showDepartmentEmployees(dept.department)">
+          <div class="department-card card h-100 clickable" (click)="showDepartmentEmployees(dept.department)">
             <div class="card-body text-center">
               <div class="department-icon mb-3">
                 <i class="fas fa-building fa-2x text-primary"></i>
@@ -90,41 +86,33 @@
     </div>
   </div>
 
-  <!-- ========== FILTERS SECTION ========== -->
+
   <div class="card mb-4" *ngIf="currentView() === 'all' || currentView() === 'new-hires'">
     <div class="card-body">
       <div class="row g-3">
-        <!-- Search -->
+
         <div class="col-md-4">
           <label class="form-label">Search Employees</label>
           <div class="input-group">
             <span class="input-group-text">
               <i class="fas fa-search"></i>
             </span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search by name or email..."
-              [value]="filters().search"
-              (input)="onSearchChange($any($event.target).value)"
-            >
+            <input type="text" class="form-control" placeholder="Search by name or email..." [value]="filters().search"
+              (input)="onSearchChange($any($event.target).value)">
           </div>
         </div>
 
-        <!-- Department Filter (only in all employees view) -->
+
         <div class="col-md-4" *ngIf="currentView() === 'all'">
           <label class="form-label">Department</label>
-          <select
-            class="form-select"
-            [value]="filters().department"
-            (change)="onDepartmentChange($any($event.target).value)"
-          >
+          <select class="form-select" [value]="filters().department"
+            (change)="onDepartmentChange($any($event.target).value)">
             <option value="">All Departments</option>
             <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
           </select>
         </div>
 
-        <!-- Results Count -->
+
         <div class="col-md-4">
           <label class="form-label">Showing</label>
           <div class="form-control bg-light">
@@ -135,7 +123,7 @@
     </div>
   </div>
 
-  <!-- ========== EMPLOYEES TABLE ========== -->
+
   <div class="card" *ngIf="currentView() !== 'departments'">
     <div class="card-body">
       <div class="table-responsive">
@@ -194,25 +182,19 @@
               </td> -->
               <td class="text-center">
                 <div class="btn-group" role="group">
-                  <button 
-                    class="btn btn-sm btn-outline-primary"
-                    (click)="onEditEmployee(employee)"
-                    title="Edit Employee"
-                  >
+                  <button class="btn btn-sm btn-outline-primary" (click)="onEditEmployee(employee)"
+                    title="Edit Employee">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button 
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="confirmDelete(employee)"
-                    title="Delete Employee"
-                  >
+                  <button class="btn btn-sm btn-outline-danger" (click)="confirmDelete(employee)"
+                    title="Delete Employee">
                     <i class="fas fa-trash"></i>
                   </button>
                 </div>
               </td>
             </tr>
 
-            <!-- Empty State -->
+
             <tr *ngIf="displayedEmployees().length === 0">
               <td colspan="6" class="text-center py-4">
                 <div class="empty-state">
@@ -242,8 +224,9 @@
   </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade show" [class.d-block]="showDeleteModal" style="background: rgba(0,0,0,0.5)" *ngIf="showDeleteModal">
+
+<div class="modal fade show" [class.d-block]="showDeleteModal" style="background: rgba(0,0,0,0.5)"
+  *ngIf="showDeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">

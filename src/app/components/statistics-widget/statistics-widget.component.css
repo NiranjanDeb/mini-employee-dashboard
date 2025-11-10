@@ -82,7 +82,7 @@
   opacity: 0.8;
 }
 
-/* Color variants */
+
 .text-primary {
   color: var(--primary-color) !important;
 }
@@ -99,7 +99,7 @@
   color: var(--warning-color) !important;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
   .stat-card .card-body {
     padding: 1.25rem;

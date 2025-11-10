@@ -18,9 +18,9 @@ export class DashboardComponent {
   selectedEmployee = signal<Employee | null>(null);
   isEditMode = signal<boolean>(false);
 
-  constructor(public employeeService: EmployeeService) {}
+  constructor(public employeeService: EmployeeService) { }
 
-  // Navigation methods
+
   showEmployeeList(): void {
     this.currentView.set('list');
     this.selectedEmployee.set(null);
@@ -39,7 +39,7 @@ export class DashboardComponent {
     this.isEditMode.set(true);
   }
 
-  // Form handlers
+
   onSaveEmployee(employeeData: EmployeeFormData): void {
     if (this.isEditMode() && this.selectedEmployee()) {
       this.employeeService.updateEmployee(this.selectedEmployee()!.id, employeeData);
@@ -53,7 +53,7 @@ export class DashboardComponent {
     this.showEmployeeList();
   }
 
-  // Getter for form component
+
   get employeeForEdit(): Employee | undefined {
     return this.selectedEmployee() || undefined;
   }

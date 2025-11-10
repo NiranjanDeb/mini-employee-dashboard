@@ -8,12 +8,12 @@ export type Theme = 'light' | 'dark';
 export class ThemeService {
 
   private readonly THEME_KEY = 'employee-dashboard-theme';
-  
-  // Use signal for reactive theme state
+
+
   currentTheme = signal<Theme>(this.getInitialTheme());
 
   constructor() {
-    // Apply theme when it changes
+
     effect(() => {
       const theme = this.currentTheme();
       this.applyTheme(theme);
@@ -30,31 +30,31 @@ export class ThemeService {
   }
 
   private getInitialTheme(): Theme {
-    // Check localStorage first
+
     const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme;
     if (savedTheme) {
       return savedTheme;
     }
-    
-    // Check system preference
+
+
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
-    
-    // Default to light
+
+
     return 'light';
   }
 
   private applyTheme(theme: Theme): void {
     const htmlElement = document.documentElement;
-    
-    // Remove existing theme classes
+
+
     htmlElement.classList.remove('light-theme', 'dark-theme');
-    
-    // Add new theme class
+
+
     htmlElement.classList.add(`${theme}-theme`);
-    
-    // Also set data attribute for CSS
+
+
     htmlElement.setAttribute('data-theme', theme);
   }
 

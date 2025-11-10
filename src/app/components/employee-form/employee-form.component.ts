@@ -19,11 +19,11 @@ export class EmployeeFormComponent implements OnInit {
   departments = Object.values(Department);
   today = new Date().toISOString().split('T')[0];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeForm();
-    
+
     if (this.isEditMode && this.employee) {
       this.populateForm();
     }
@@ -59,11 +59,11 @@ export class EmployeeFormComponent implements OnInit {
 
   private futureDateValidator(control: any) {
     if (!control.value) return null;
-    
+
     const selectedDate = new Date(control.value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     return selectedDate > today ? { futureDate: true } : null;
   }
 
@@ -87,7 +87,7 @@ export class EmployeeFormComponent implements OnInit {
     this.cancel.emit();
   }
 
-  // Helper methods for template
+
   isFieldInvalid(fieldName: string): boolean {
     const field = this.employeeForm.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
@@ -95,15 +95,15 @@ export class EmployeeFormComponent implements OnInit {
 
   getFieldError(fieldName: string): string {
     const field = this.employeeForm.get(fieldName);
-    
+
     if (!field || !field.errors) return '';
-    
+
     if (field.errors['required']) return 'This field is required';
     if (field.errors['minlength']) return 'Name must be at least 3 characters long';
     if (field.errors['email']) return 'Please enter a valid email address';
     if (field.errors['pattern']) return 'Name can only contain letters and spaces';
     if (field.errors['futureDate']) return 'Date of joining cannot be in the future';
-    
+
     return 'Invalid value';
   }
 

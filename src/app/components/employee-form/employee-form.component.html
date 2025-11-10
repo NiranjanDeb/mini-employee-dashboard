@@ -6,47 +6,31 @@
   </div>
   <div class="card-body">
     <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-      <!-- Name Field -->
+
       <div class="mb-3">
         <label for="name" class="form-label">Full Name</label>
-        <input
-          type="text"
-          class="form-control"
-          [class.is-invalid]="isFieldInvalid('name')"
-          id="name"
-          formControlName="name"
-          placeholder="Enter employee's full name"
-        >
+        <input type="text" class="form-control" [class.is-invalid]="isFieldInvalid('name')" id="name"
+          formControlName="name" placeholder="Enter employee's full name">
         <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
           {{ getFieldError('name') }}
         </div>
       </div>
 
-      <!-- Email Field -->
+
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
-        <input
-          type="email"
-          class="form-control"
-          [class.is-invalid]="isFieldInvalid('email')"
-          id="email"
-          formControlName="email"
-          placeholder="Enter email address"
-        >
+        <input type="email" class="form-control" [class.is-invalid]="isFieldInvalid('email')" id="email"
+          formControlName="email" placeholder="Enter email address">
         <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
           {{ getFieldError('email') }}
         </div>
       </div>
 
-      <!-- Department Field -->
+
       <div class="mb-3">
         <label for="department" class="form-label">Department</label>
-        <select
-          class="form-select"
-          [class.is-invalid]="isFieldInvalid('department')"
-          id="department"
-          formControlName="department"
-        >
+        <select class="form-select" [class.is-invalid]="isFieldInvalid('department')" id="department"
+          formControlName="department">
           <option value="">Select Department</option>
           <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
         </select>
@@ -55,23 +39,17 @@
         </div>
       </div>
 
-      <!-- Date of Joining Field -->
+
       <div class="mb-3">
         <label for="dateOfJoining" class="form-label">Date of Joining</label>
-        <input
-          type="date"
-          class="form-control"
-          [class.is-invalid]="isFieldInvalid('dateOfJoining')"
-          id="dateOfJoining"
-          formControlName="dateOfJoining"
-          [max]="today"
-        >
+        <input type="date" class="form-control" [class.is-invalid]="isFieldInvalid('dateOfJoining')" id="dateOfJoining"
+          formControlName="dateOfJoining" [max]="today">
         <div class="invalid-feedback" *ngIf="isFieldInvalid('dateOfJoining')">
           {{ getFieldError('dateOfJoining') }}
         </div>
       </div>
 
-      <!-- Form Actions -->
+
       <div class="d-flex gap-2 justify-content-end">
         <button type="button" class="btn btn-secondary" (click)="onCancel()">
           <i class="fas fa-times me-1"></i>Cancel
