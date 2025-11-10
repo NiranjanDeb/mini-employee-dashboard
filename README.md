@@ -18,7 +18,7 @@ A modern, responsive Employee Management System built with **Angular 19** featur
 - **Responsive Design** — Works on desktop, tablet, and mobile
 - **Dark/Light Theme** — Toggle between themes with persistence
 
-### Bonus Features 🎯
+### Bonus Features 
 - **LocalStorage Persistence**
 - **CSV Export** for all employees
 - **Interactive Statistics Widget**
